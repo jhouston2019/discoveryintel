@@ -122,11 +122,11 @@ export default function DemoPage() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="overview" active={activeTab === 'overview'}>Overview</TabsTrigger>
-            <TabsTrigger value="timeline" active={activeTab === 'timeline'}>Timeline</TabsTrigger>
-            <TabsTrigger value="contradictions" active={activeTab === 'contradictions'}>Contradictions</TabsTrigger>
-            <TabsTrigger value="impeachment" active={activeTab === 'impeachment'}>Impeachment</TabsTrigger>
-            <TabsTrigger value="evidence" active={activeTab === 'evidence'}>Evidence</TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="timeline">Timeline</TabsTrigger>
+            <TabsTrigger value="contradictions">Contradictions</TabsTrigger>
+            <TabsTrigger value="impeachment">Impeachment</TabsTrigger>
+            <TabsTrigger value="evidence">Evidence</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="mt-6">
