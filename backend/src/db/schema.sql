@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS cases (
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   case_name VARCHAR(255) NOT NULL,
   description TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  analysis_paid BOOLEAN DEFAULT false
 );
 
 -- Documents table
@@ -28,7 +29,8 @@ CREATE TABLE IF NOT EXISTS documents (
   storage_path TEXT NOT NULL,
   upload_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   processing_status VARCHAR(50) DEFAULT 'pending',
-  processing_error TEXT
+  processing_error TEXT,
+  document_type VARCHAR(50) DEFAULT 'other'
 );
 
 -- Document chunks table with vector embeddings

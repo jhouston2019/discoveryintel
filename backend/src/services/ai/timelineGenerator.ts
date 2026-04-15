@@ -30,7 +30,7 @@ export class TimelineGenerator {
 
         if (!chunks || chunks.length === 0) continue;
 
-        const combinedText = chunks.map(c => c.chunk_text).join('\n\n');
+        const combinedText = chunks.map((c: { chunk_text: string }) => c.chunk_text).join('\n\n');
 
         const completion = await openai.chat.completions.create({
           model: 'gpt-4-turbo-preview',

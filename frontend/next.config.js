@@ -2,7 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone',
+  // Standalone for container images; set in frontend/Dockerfile.
+  ...(process.env.NEXT_OUTPUT_STANDALONE === '1' ? { output: 'standalone' } : {}),
+  webpack: (config) => {
+    config.resolve.symlinks = false
+    return config
+  },
 }
 
 module.exports = nextConfig

@@ -8,6 +8,8 @@ RUN npm ci
 
 COPY . .
 
+ENV NEXT_OUTPUT_STANDALONE=1
+
 RUN npm run build
 
 FROM node:18-alpine AS runner

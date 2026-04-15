@@ -27,7 +27,7 @@ export class StrategyGenerator {
       const contextParts: string[] = [];
 
       if (analysisResults) {
-        analysisResults.forEach(result => {
+        analysisResults.forEach((result: { analysis_type: string; result_json: unknown }) => {
           contextParts.push(`\n--- ${result.analysis_type.toUpperCase()} ---`);
           contextParts.push(JSON.stringify(result.result_json, null, 2).substring(0, 3000));
         });
@@ -42,7 +42,9 @@ export class StrategyGenerator {
           .limit(10);
 
         if (chunks) {
-          sampleChunks.push(`\nDocument: ${doc.filename}\n${chunks.map(c => c.chunk_text).join('\n').substring(0, 2000)}`);
+          sampleChunks.push(
+            `\nDocument: ${doc.filename}\n${chunks.map((c: { chunk_text: string }) => c.chunk_text).join('\n').substring(0, 2000)}`
+          );
         }
       }
 

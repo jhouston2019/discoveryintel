@@ -26,8 +26,8 @@ cd frontend && npm install && cd ..
 1. Create account at https://supabase.com
 2. Create new project
 3. Go to SQL Editor
-4. Run `backend/db/schema.sql`
-5. Run `backend/db/functions.sql`
+4. Run `backend/src/db/schema.sql`
+5. Run `backend/src/db/functions.sql`
 6. Go to Settings > API and copy:
    - Project URL
    - `anon` public key

@@ -71,7 +71,7 @@ redis-cli ping
 2. **Run Database Setup**
    - Click "SQL Editor" in left sidebar
    - Click "New query"
-   - Open `backend/db/schema.sql` from your project
+   - Open `backend/src/db/schema.sql` from your project
    - Copy all contents
    - Paste into Supabase SQL Editor
    - Click "Run"
@@ -79,7 +79,7 @@ redis-cli ping
 
 3. **Run Vector Search Function**
    - Click "New query" again
-   - Open `backend/db/functions.sql`
+   - Open `backend/src/db/functions.sql`
    - Copy all contents
    - Paste and run
 

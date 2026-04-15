@@ -26,7 +26,7 @@ export class EmbeddingService {
         input: texts
       });
 
-      return response.data.map(item => item.embedding);
+      return response.data.map((item: { embedding: number[] }) => item.embedding);
     } catch (error) {
       console.error('Batch embedding generation error:', error);
       throw new Error('Failed to generate embeddings');

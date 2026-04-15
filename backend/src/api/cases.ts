@@ -61,7 +61,7 @@ router.get('/:id', async (req: AuthRequest, res, next) => {
 
     const { data: caseData, error } = await supabaseAdmin
       .from('cases')
-      .select('*')
+      .select('id, user_id, case_name, description, created_at, analysis_paid')
       .eq('id', id)
       .eq('user_id', req.userId)
       .single();

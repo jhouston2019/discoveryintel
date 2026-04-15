@@ -80,21 +80,27 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ### 3. Install dependencies
 
-```bash
-# Install backend dependencies
-cd backend
-npm install
+**Windows:** If the project path contains **spaces**, use `npm run build:win` for a full compile, or move the repo to a path without spaces (see [SETUP.md](SETUP.md)).
 
-# Install frontend dependencies
-cd ../frontend
-npm install
+From the repo root (installs root tools, builds `shared`, then backend + frontend):
+
+```bash
+npm run install:all
+```
+
+Or manually (order matters — `shared` must compile before backend/frontend):
+
+```bash
+cd shared && npm install && npm run build && cd ..
+cd backend && npm install && cd ..
+cd frontend && npm install && cd ..
 ```
 
 ### 4. Set up database
 
 Run the SQL migration script in your Supabase SQL editor:
 ```bash
-# The schema is in backend/db/schema.sql
+# The schema is in backend/src/db/schema.sql
 ```
 
 ### 5. Run the application

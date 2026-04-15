@@ -32,9 +32,9 @@ cd discoveryintel
 
 1. Go to your Supabase project dashboard
 2. Navigate to SQL Editor
-3. Copy and paste the contents of `backend/db/schema.sql`
+3. Copy and paste the contents of `backend/src/db/schema.sql`
 4. Run the SQL script
-5. Copy and paste the contents of `backend/db/functions.sql`
+5. Copy and paste the contents of `backend/src/db/functions.sql`
 6. Run the SQL script
 
 ### 2.3 Configure Storage
@@ -83,41 +83,29 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
 ## Step 4: Install Dependencies
 
-### Option A: Install All at Once
+From the **repository root**:
 
 ```bash
 npm run install:all
 ```
 
-### Option B: Install Individually
+This installs root tooling, then `shared` (and runs `npm run build` there), then `backend` and `frontend`. The repo `.npmrc` sets `install-links=true` so local `file:../shared` dependencies are **copied** instead of symlinked (avoids common Windows `EISDIR` errors).
+
+To install only root dev tools (e.g. `concurrently`):
 
 ```bash
-# Root dependencies
 npm install
-
-# Shared types
-cd shared
-npm install
-cd ..
-
-# Backend
-cd backend
-npm install
-cd ..
-
-# Frontend
-cd frontend
-npm install
-cd ..
 ```
 
-## Step 5: Build Shared Types
+## Step 5: Build packages
+
+From the repository root:
 
 ```bash
-cd shared
 npm run build
-cd ..
 ```
+
+This compiles `shared` and `backend`, then runs `next build` for the frontend.
 
 ## Step 6: Run the Application
 
@@ -211,6 +199,21 @@ PORT=3001 npm run dev
 
 - Ensure Redis is running: `redis-cli ping` should return `PONG`
 - Check REDIS_URL in backend/.env is correct
+
+### Windows: Next.js `readlink` / `EISDIR` during `npm run build` (frontend)
+
+This is **not** caused by dynamic routes like `app/cases/[id]` — it happens when the **full project path contains spaces** (Webpack/Next on Windows). The frontend **`prebuild`** script stops with a clear error if it detects that.
+
+**Fixes:**
+
+1. **Recommended:** clone or move the repo to a path **without spaces**, e.g. `C:\dev\discoveryintel`, then run `npm run install:all` and `npm run build` as usual.
+2. **Or** from the repo root run **`npm run build:win`**, which stages `shared` + `frontend` under `%TEMP%`, runs the build there, and copies `frontend/.next` back.
+
+### Windows: install errors (EISDIR, EPERM, or slow `npm install`)
+
+- Use **`npm run install:all`** from the repo root (this project does not use npm workspaces, so `file:../shared` links avoid symlink issues).
+- If install fails with **EPERM** on files under `node_modules`, close editors/terminals using that folder, pause antivirus for the project path, delete `backend/node_modules` (and other package `node_modules`), and run `npm run install:all` again.
+- If a previous attempt left a broken tree, delete root `package-lock.json` and each `node_modules` folder, then reinstall.
 
 ## Development Tips
 

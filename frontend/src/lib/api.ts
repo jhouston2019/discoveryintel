@@ -37,11 +37,12 @@ export const casesApi = {
 };
 
 export const documentsApi = {
-  upload: (caseId: string, file: File) => {
+  upload: (caseId: string, file: File, documentType?: string) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('caseId', caseId);
-    
+    if (documentType) formData.append('documentType', documentType);
+
     return api.post('/api/documents/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -73,6 +74,18 @@ export const analysisApi = {
 export const searchApi = {
   search: (caseId: string, query: string, limit?: number) =>
     api.post('/api/search', { caseId, query, limit }),
+};
+
+export const paymentsApi = {
+  createCheckout: (caseId: string) =>
+    api.post('/api/payments/create-checkout', { caseId }),
+};
+
+export const exportApi = {
+  downloadPdf: (caseId: string) =>
+    api.get(`/api/export/${caseId}/pdf`, { responseType: 'blob' }),
+  downloadDocx: (caseId: string) =>
+    api.get(`/api/export/${caseId}/docx`, { responseType: 'blob' }),
 };
 
 export default api;

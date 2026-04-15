@@ -31,7 +31,7 @@ export class ContradictionDetector {
 
         if (chunks && chunks.length > 0) {
           documentTexts[doc.id] = {
-            text: chunks.map(c => c.chunk_text).join('\n\n'),
+            text: chunks.map((c: { chunk_text: string }) => c.chunk_text).join('\n\n'),
             filename: doc.filename
           };
         }

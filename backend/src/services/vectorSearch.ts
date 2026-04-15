@@ -48,6 +48,6 @@ export class VectorSearchService {
     limit: number = 20
   ): Promise<string[]> {
     const results = await this.searchDocuments(caseId, query, limit);
-    return results.map(r => r.chunk_text);
+    return results.map((r: SearchResult) => r.chunk_text);
   }
 }

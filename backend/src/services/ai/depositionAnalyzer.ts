@@ -20,8 +20,8 @@ export class DepositionAnalyzer {
         return [];
       }
 
-      const depositionDocs = documents.filter(d => 
-        d.filename.toLowerCase().includes('deposition') || 
+      const depositionDocs = documents.filter((d: { filename: string }) =>
+        d.filename.toLowerCase().includes('deposition') ||
         d.filename.toLowerCase().includes('transcript') ||
         d.filename.toLowerCase().includes('testimony')
       );
@@ -41,7 +41,7 @@ export class DepositionAnalyzer {
 
         if (!chunks || chunks.length === 0) continue;
 
-        const transcriptText = chunks.map(c => c.chunk_text).join('\n\n');
+        const transcriptText = chunks.map((c: { chunk_text: string }) => c.chunk_text).join('\n\n');
 
         const completion = await openai.chat.completions.create({
           model: 'gpt-4-turbo-preview',

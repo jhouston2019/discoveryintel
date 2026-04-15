@@ -31,7 +31,7 @@ export class EvidenceExtractor {
 
         if (!chunks || chunks.length === 0) continue;
 
-        const documentText = chunks.map(c => c.chunk_text).join('\n\n');
+        const documentText = chunks.map((c: { chunk_text: string }) => c.chunk_text).join('\n\n');
 
         const completion = await openai.chat.completions.create({
           model: 'gpt-4-turbo-preview',
@@ -78,7 +78,12 @@ Focus on evidence that could significantly impact the case.`
       }
 
       allSignals.sort((a, b) => {
-        const importanceOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+        const importanceOrder: Record<(typeof a)['importance'], number> = {
+          critical: 0,
+          high: 1,
+          medium: 2,
+          low: 3
+        };
         return importanceOrder[a.importance] - importanceOrder[b.importance];
       });
 

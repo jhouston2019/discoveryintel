@@ -6,6 +6,8 @@ import casesRoutes from './api/cases';
 import documentsRoutes from './api/documents';
 import analysisRoutes from './api/analysis';
 import searchRoutes from './api/search';
+import paymentsRouter, { paymentsWebhookHandler } from './api/payments';
+import exportRouter from './api/export';
 import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config();
@@ -14,6 +16,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
+app.post(
+  '/api/payments/webhook',
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    void paymentsWebhookHandler(req, res);
+  }
+);
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
@@ -26,6 +35,8 @@ app.use('/api/cases', casesRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/payments', paymentsRouter);
+app.use('/api/export', exportRouter);
 
 app.use(errorHandler);
 

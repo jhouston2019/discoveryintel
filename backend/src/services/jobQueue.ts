@@ -33,18 +33,18 @@ export const analysisWorker = new Worker(
   { connection }
 );
 
-documentWorker.on('completed', (job) => {
+documentWorker.on('completed', (job: Job) => {
   console.log(`Document processing completed: ${job.id}`);
 });
 
-documentWorker.on('failed', (job, err) => {
+documentWorker.on('failed', (job: Job | undefined, err: Error) => {
   console.error(`Document processing failed: ${job?.id}`, err);
 });
 
-analysisWorker.on('completed', (job) => {
+analysisWorker.on('completed', (job: Job) => {
   console.log(`Analysis completed: ${job.id}`);
 });
 
-analysisWorker.on('failed', (job, err) => {
+analysisWorker.on('failed', (job: Job | undefined, err: unknown) => {
   console.error(`Analysis failed: ${job?.id}`, err);
 });

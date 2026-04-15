@@ -92,7 +92,8 @@ router.post('/upload', upload.single('file'), async (req: AuthRequest, res, next
         file_type: req.file.mimetype,
         file_size: req.file.size,
         storage_path: fileName,
-        processing_status: 'pending'
+        processing_status: 'pending',
+        document_type: req.body?.documentType || 'other',
       })
       .select()
       .single();
@@ -111,7 +112,9 @@ router.post('/upload', upload.single('file'), async (req: AuthRequest, res, next
           .select('processing_status')
           .eq('case_id', caseId);
 
-        const allCompleted = allDocs?.every(d => d.processing_status === 'completed');
+        const allCompleted = allDocs?.every(
+          (d: { processing_status: string }) => d.processing_status === 'completed'
+        );
 
         if (allCompleted && allDocs && allDocs.length > 0) {
           console.log(`All documents processed for case ${caseId}, running analysis...`);

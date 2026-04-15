@@ -40,8 +40,8 @@ cd discoveryintel
 
 # 2. Set up Supabase (5 minutes)
 # - Create project at supabase.com
-# - Run backend/db/schema.sql
-# - Run backend/db/functions.sql
+# - Run backend/src/db/schema.sql
+# - Run backend/src/db/functions.sql
 # - Copy API keys
 
 # 3. Get OpenAI key (2 minutes)

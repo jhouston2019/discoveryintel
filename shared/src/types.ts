@@ -10,6 +10,7 @@ export interface Case {
   case_name: string;
   description?: string;
   created_at: string;
+  analysis_paid?: boolean;
 }
 
 export interface Document {
@@ -111,6 +112,7 @@ export interface CaseStrategy {
   key_leverage_points: string[];
   potential_defense_narrative: string;
   recommended_actions: string[];
+  recommended_depositions?: string[];
 }
 
 export interface SearchResult {
